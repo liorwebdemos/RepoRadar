@@ -1,5 +1,7 @@
 using WebApi.BL.Contracts;
 using WebApi.BL.Implementations;
+using WebApi.DAL.Contracts;
+using WebApi.DAL.Implementations;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +21,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(options => { }); // Log Http Requests
 
-//builder.Services.AddScoped<IReposBL, ReposBL>();
-builder.Services.AddScoped<IReposBL, ReposMockBL>();
+#region DAL
+//builder.Services.AddScoped<IReposRepo, ReposHttpRepo>();
+builder.Services.AddScoped<IReposRepo, ReposMockRepo>();
+#endregion DAL
+
+#region BL
+builder.Services.AddScoped<IReposBL, ReposBL>();
+#endregion BL
+
 #endregion Services
 
 WebApplication app = builder.Build();
@@ -41,6 +50,7 @@ app.UseAuthorization();
 #endregion Security
 
 app.MapControllers();
+
 #endregion Http Pipeline Configuration
 
 app.Run();
