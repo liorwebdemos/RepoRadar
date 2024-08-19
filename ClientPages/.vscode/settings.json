@@ -1,0 +1,28 @@
+{
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit"
+	},
+	"html.format.indentInnerHtml": true,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+	"javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+	"javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+	"typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+	"javascript.preferences.quoteStyle": "double",
+	"typescript.preferences.quoteStyle": "double",
+	"autoimport.doubleQuotes": true,
+	"editor.fontFamily": "Fira Code Retina",
+	"editor.formatOnSave": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": "active",
+	"files.exclude": {
+		"**/node_modules": true,
+		".angular": true,
+		"dist": true
+	},
+	"emmet.triggerExpansionOnTab": true,
+	"cSpell.words": ["devkit"]
+}
