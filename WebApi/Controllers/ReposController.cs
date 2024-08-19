@@ -15,8 +15,11 @@ namespace WebApi.Controllers
 			_reposBL = reposBL;
 		}
 
+		/// <summary>get repos by keyword</summary>
+		/// <param name="keyword">search query</param>
+		/// <returns>list of repos</returns>
 		[HttpGet]
-		public IEnumerable<Repo> GetAllRepos(string keyword)
+		public IEnumerable<Repo> GetReposByKeyword(string? keyword)
 		{
 			return _reposBL.GetReposByKeyword(keyword);
 		}

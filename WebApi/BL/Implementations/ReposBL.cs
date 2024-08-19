@@ -6,16 +6,21 @@ namespace WebApi.BL.Implementations
 {
 	public class ReposBL : IReposBL
 	{
-		private IReposRepo _reposRepo;
+		private readonly IReposRepo ReposRepo;
 
 		public ReposBL(IReposRepo reposRepo)
 		{
-			_reposRepo = reposRepo;
+			ReposRepo = reposRepo;
 		}
 
-		public IEnumerable<Repo> GetReposByKeyword(string keyword)
+		public IEnumerable<Repo> GetReposByKeyword(string? keyword)
 		{
-			return _reposRepo.GetReposByKeyword(keyword)
+			if (string.IsNullOrWhiteSpace(keyword))
+			{
+				return Enumerable.Empty<Repo>();
+			}
+			return ReposRepo.GetReposByKeyword(keyword)
+				.OrderBy(r => r.Name)
 				.ToList(); // TODO: explain tolisting here
 		}
 	}

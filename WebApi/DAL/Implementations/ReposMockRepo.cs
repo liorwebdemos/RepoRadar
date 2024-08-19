@@ -5,7 +5,7 @@ namespace WebApi.DAL.Implementations
 {
 	public class ReposMockRepo : IReposRepo
 	{
-		// TODO: move to json file? configuration?
+		// note: can have also placed the mock data in a json file or in the configuration
 		private List<Repo> _repos = new()
 		{
 			new Repo { Name = "hello" },

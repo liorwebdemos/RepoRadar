@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Formatters;
 using WebApi.BL.Contracts;
 using WebApi.BL.Implementations;
 using WebApi.DAL.Contracts;
@@ -16,14 +17,19 @@ builder.Services.AddCors(
 );
 
 #region Services
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+	// useful defaults, source: https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-8.0#special-case-formatters-2
+	options.OutputFormatters.RemoveType<StringOutputFormatter>(); // text/plain or text/html -> json
+	options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>(); // 204 No Content -> response with null body
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(options => { }); // Log Http Requests
 
 #region DAL
-//builder.Services.AddScoped<IReposRepo, ReposHttpRepo>();
-builder.Services.AddScoped<IReposRepo, ReposMockRepo>();
+builder.Services.AddScoped<IReposRepo, ReposHttpRepo>();
+//builder.Services.AddScoped<IReposRepo, ReposMockRepo>();
 #endregion DAL
 
 #region BL

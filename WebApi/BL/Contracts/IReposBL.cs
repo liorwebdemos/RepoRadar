@@ -4,6 +4,7 @@ namespace WebApi.BL.Contracts
 {
 	public interface IReposBL
 	{
-		IEnumerable<Repo> GetReposByKeyword(string keyword);
+		/// <summary>get repos by keyword</summary>
+		IEnumerable<Repo> GetReposByKeyword(string? keyword);
 	}
 }
