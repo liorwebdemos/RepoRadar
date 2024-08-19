@@ -1,3 +1,6 @@
+using WebApi.BL.Contracts;
+using WebApi.BL.Implementations;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 string allowAllCorsPolicy = "_allowAllCorsPolicy";
@@ -15,6 +18,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(options => { }); // Log Http Requests
+
+//builder.Services.AddScoped<IReposBL, ReposBL>();
+builder.Services.AddScoped<IReposBL, ReposMockBL>();
 #endregion Services
 
 WebApplication app = builder.Build();
