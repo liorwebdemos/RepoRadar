@@ -1,12 +1,5 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-#region Services
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddHttpLogging(options => { });
-#endregion Services
-
 string allowAllCorsPolicy = "_allowAllCorsPolicy";
 builder.Services.AddCors(
 	options => options.AddPolicy(
@@ -17,16 +10,23 @@ builder.Services.AddCors(
 			.AllowAnyHeader())
 );
 
+#region Services
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddHttpLogging(options => { }); // Log Http Requests
+#endregion Services
+
 WebApplication app = builder.Build();
 
 #region Http Pipeline Configuration
 if (app.Environment.IsDevelopment())
 {
+	app.UseHttpLogging();
 	app.UseDeveloperExceptionPage();
 	app.UseCors(allowAllCorsPolicy);
 	app.UseSwagger();
 	app.UseSwaggerUI();
-	app.UseHttpLogging();
 }
 
 #region Security
