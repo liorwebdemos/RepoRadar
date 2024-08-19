@@ -35,6 +35,7 @@ builder.Services.AddScoped<IReposBL, ReposBL>();
 WebApplication app = builder.Build();
 
 #region Http Pipeline Configuration
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseHttpLogging();
