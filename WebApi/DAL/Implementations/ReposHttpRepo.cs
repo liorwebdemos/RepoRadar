@@ -1,5 +1,6 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Text;
-using System.Text.Json;
 using WebApi.DAL.Contracts;
 using WebApi.Models;
 
@@ -44,7 +45,7 @@ namespace WebApi.DAL.Implementations
 
 			if (requestBody != null)
 			{
-				string requestBodyAsJson = JsonSerializer.Serialize(requestBody);
+				string requestBodyAsJson = JsonConvert.SerializeObject(requestBody);
 				request.Content = new StringContent(requestBodyAsJson, Encoding.UTF8, "application/json");
 			}
 
@@ -55,13 +56,15 @@ namespace WebApi.DAL.Implementations
 			}
 
 			string responseBody = response.Content.ReadAsStringAsync().Result;
-			JsonSerializerOptions options = new()
+			JsonSerializerSettings settings = new()
 			{
 				// snake_case -> PascalCase
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				PropertyNameCaseInsensitive = true
+				ContractResolver = new DefaultContractResolver
+				{
+					NamingStrategy = new SnakeCaseNamingStrategy()
+				}
 			};
-			T? responseBodyAsObject = JsonSerializer.Deserialize<T>(responseBody, options);
+			T? responseBodyAsObject = JsonConvert.DeserializeObject<T>(responseBody, settings);
 
 			return responseBodyAsObject;
 		}
