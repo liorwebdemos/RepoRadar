@@ -4,6 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
 using WebApi.DAL.Contracts;
+using WebApi.DAL.Helpers;
 using WebApi.Models.DTOs;
 using WebApi.Models.Models;
 
@@ -42,52 +43,19 @@ namespace WebApi.DAL.Implementations
 			return response.ConvertRepoDtoToRepo();
 		}
 
-		/// <summary>note: low level mess...</summary>
-		/// <param name="fullNames"></param>
-		/// <returns></returns>
 		public IEnumerable<Repo> GetReposByFullNames(List<string> fullNames)
 		{
-			// dynamically build a GraphQl query
-			StringBuilder queryBuilder = new();
-			queryBuilder.Append("query {");
-			int index = 1;
-			foreach (string fullName in fullNames)
-			{
-				string[] parts = fullName.Split("/");
-				if (parts.Length != 2)
-				{
-					throw new ArgumentException($"Invalid fullName format: {fullName}");
-				}
-
-				string owner = parts[0];
-				string name = parts[1];
-
-				queryBuilder.AppendLine($@"
-                repo{index}: repository(owner: ""{owner}"", name: ""{name}"") {{
-                    id
-                    name
-                    owner {{
-                        login
-                    }}
-                    url
-                    description
-					createdAt
-                }}");
-
-				index++;
-			}
-			queryBuilder.Append("}");
-
-			var query = new { query = queryBuilder.ToString() };
+			object query = QueryBuilder.BuildGraphQlQueryByFullNames(fullNames);
 
 			ReposGraphQlDto? response = SendSimpleHttpRequest<ReposGraphQlDto?>("graphql", HttpMethod.Post, query);
 			if (response == null || response.Data.IsNullOrEmpty())
 			{
 				return Enumerable.Empty<Repo>();
 			}
+
 			return response.Data.Values
 				.Select(r => r.ConvertRepoDtoToRepo())
-			.ToList();
+				.ToList();
 		}
 
 		public IEnumerable<Repo> GetReposByKeyword(string keyword)

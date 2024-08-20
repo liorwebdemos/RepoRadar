@@ -1,6 +1,6 @@
 using WebApi.Models.Models;
 
-namespace WebApi.DAL.Implementations
+namespace WebApi.DAL.Helpers
 {
 	//TODO: should just configure AutoMapper
 	public static class Converters
