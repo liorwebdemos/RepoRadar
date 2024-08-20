@@ -15,6 +15,15 @@ namespace WebApi.Controllers
 			_reposBL = reposBL;
 		}
 
+		/// <summary>get extended repos by full names</summary>
+		/// <param name="fullNames"></param>
+		/// <returns></returns>
+		[HttpPost]
+		public IEnumerable<ExtendedRepo> GetExtendedReposByFullNames([FromBody] List<string> fullNames)
+		{
+			return _reposBL.GetExtendedReposByFullNames(fullNames);
+		}
+
 		/// <summary>get extended repos by keyword</summary>
 		/// <param name="keyword">search query</param>
 		/// <returns>list of extended repos</returns>
@@ -24,35 +33,29 @@ namespace WebApi.Controllers
 			return _reposBL.GetExtendedReposByKeyword(keyword);
 		}
 
-		[HttpPost]
-		public IEnumerable<ExtendedRepo> GetExtendedReposByFullNames([FromBody] List<string> fullNames)
-		{
-			return _reposBL.GetExtendedReposByFullNames(fullNames);
-		}
+		///// <summary>get favorite extended repos (for the current user)</summary>
+		//[HttpGet("favorites")]
+		//public IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos()
+		//{
+		//	return _reposBL.GetFavoriteExtendedRepos();
+		//}
 
-		/// <summary>get favorite extended repos (for the current user)</summary>
-		[HttpGet("favorites")]
-		public IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos()
-		{
-			return _reposBL.GetFavoriteExtendedRepos();
-		}
+		///// <summary>add to favorites (if already there, keeps it that way)</summary>
+		///// <param name="fullName">repo full name (owner/name), i.e. facebook/react</param>
+		///// <returns>final extended repo</returns>
+		//[HttpPost("favorites")]
+		//public ExtendedRepo SetFavoriteByFullName([FromQuery] string fullName)
+		//{
+		//	return _reposBL.SetFavoriteByFullName(fullName);
+		//}
 
-		/// <summary>add to favorites (if already there, keeps it that way)</summary>
-		/// <param name="fullName">repo full name (owner/name), i.e. facebook/react</param>
-		/// <returns>final extended repo</returns>
-		[HttpPost("favorites")]
-		public ExtendedRepo SetFavoriteById([FromQuery] string fullName) // TODO: change to repo full name
-		{
-			return _reposBL.SetFavoriteByFullName(fullName);
-		}
-
-		/// <summary>remove from favorites (if not there, keeps it that way)</summary>
-		/// <param name="fullName">repo full name (owner/name), i.e. facebook/react</param>
-		/// <returns>final extended repo</returns>
-		[HttpDelete("favorites")]
-		public ExtendedRepo SetUnfavoriteById([FromQuery] string fullName) // TODO: change to repo full name
-		{
-			return _reposBL.SetUnfavoriteByFullName(fullName);
-		}
+		///// <summary>remove from favorites (if not there, keeps it that way)</summary>
+		///// <param name="fullName">repo full name (owner/name), i.e. facebook/react</param>
+		///// <returns>final extended repo</returns>
+		//[HttpDelete("favorites")]
+		//public ExtendedRepo SetUnfavoriteByFullName([FromQuery] string fullName)
+		//{
+		//	return _reposBL.SetUnfavoriteByFullName(fullName);
+		//}
 	}
 }

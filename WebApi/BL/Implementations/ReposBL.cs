@@ -25,64 +25,9 @@ namespace WebApi.BL.Implementations
 				.Select(r => new ExtendedRepo // no need for AutoMapper just for this
 				{
 					Repo = r,
-					IsFavorite = IsFavoriteByFullName(r.FullName)
+					IsFavorite = false //IsFavoriteByFullName(r.FullName)
 				})
 				.ToList(); // TODO: explain reasoning behind tolisting here
-		}
-
-		public IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos()
-		{
-			// TODO: get favorites ids from claims
-			List<string> favoritesFullNames = new(){
-				"goauthentik/authentik",
-				"mpv-player/mpv"
-			};
-
-			IEnumerable<Repo> favoriteRepos = ReposRepo.GetReposByFullNames(favoritesFullNames);
-
-			return favoriteRepos.Select(fr => new ExtendedRepo()
-			{
-				Repo = fr,
-				IsFavorite = true
-			});
-		}
-
-		public ExtendedRepo SetFavoriteByFullName(string fullName)
-		{
-			if (string.IsNullOrWhiteSpace(fullName))
-			{
-				throw new InvalidOperationException();
-			}
-			Repo? repo = ReposRepo.GetRepoByFullName(fullName);
-			if (repo == null)
-			{
-				throw new ArgumentException();
-			}
-			//TODO: add to claims
-			return new ExtendedRepo
-			{
-				Repo = repo,
-				IsFavorite = true
-			};
-		}
-
-		public ExtendedRepo SetUnfavoriteByFullName(string fullName)
-		{
-			if (string.IsNullOrWhiteSpace(fullName))
-			{
-				throw new InvalidOperationException();
-			}
-			Repo? repo = ReposRepo.GetRepoByFullName(fullName);
-			if (repo == null)
-			{
-				throw new ArgumentException();
-			}
-			//TODO: remove from claims
-			return new ExtendedRepo
-			{
-				Repo = repo,
-				IsFavorite = false
-			};
 		}
 
 		public IEnumerable<ExtendedRepo> GetExtendedReposByFullNames(List<string> fullNames)
@@ -99,9 +44,64 @@ namespace WebApi.BL.Implementations
 				});
 		}
 
-		private bool IsFavoriteByFullName(string fullName)
-		{
-			return false; // TODO
-		}
+		//public IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos()
+		//{
+		//	// TODO: get favorites ids from claims
+		//	List<string> favoritesFullNames = new(){
+		//		"goauthentik/authentik",
+		//		"mpv-player/mpv"
+		//	};
+
+		//	IEnumerable<Repo> favoriteRepos = ReposRepo.GetReposByFullNames(favoritesFullNames);
+
+		//	return favoriteRepos.Select(fr => new ExtendedRepo()
+		//	{
+		//		Repo = fr,
+		//		IsFavorite = true
+		//	});
+		//}
+
+		//public ExtendedRepo SetFavoriteByFullName(string fullName)
+		//{
+		//	if (string.IsNullOrWhiteSpace(fullName))
+		//	{
+		//		throw new InvalidOperationException();
+		//	}
+		//	Repo? repo = ReposRepo.GetRepoByFullName(fullName);
+		//	if (repo == null)
+		//	{
+		//		throw new ArgumentException();
+		//	}
+		//	//TODO: add to claims
+		//	return new ExtendedRepo
+		//	{
+		//		Repo = repo,
+		//		IsFavorite = true
+		//	};
+		//}
+
+		//public ExtendedRepo SetUnfavoriteByFullName(string fullName)
+		//{
+		//	if (string.IsNullOrWhiteSpace(fullName))
+		//	{
+		//		throw new InvalidOperationException();
+		//	}
+		//	Repo? repo = ReposRepo.GetRepoByFullName(fullName);
+		//	if (repo == null)
+		//	{
+		//		throw new ArgumentException();
+		//	}
+		//	//TODO: remove from claims
+		//	return new ExtendedRepo
+		//	{
+		//		Repo = repo,
+		//		IsFavorite = false
+		//	};
+		//}
+
+		//private bool IsFavoriteByFullName(string fullName)
+		//{
+		//	return false; // TODO
+		//}
 	}
 }

@@ -1,8 +1,35 @@
 <div class="flex-grow flex flex-col overflow-auto">
 	<app-header></app-header>
 	<div class="flex-grow flex flex-col overflow-auto">
-		<div *ngFor="let item of [].constructor(50); let i = index">
-			{{ i + 1 }}: text
-		</div>
+		<input
+			type="text"
+			#searchInput
+			(input)="onInput($event)"
+			placeholder="Search by keyword..."
+		/>
+		<button (click)="setRepoFavorite(searchInput.value)">
+			Add to favorites
+		</button>
+		<button (click)="reposService.setUnfavoriteByFullName(searchInput.value)">
+			Remove from favorites
+		</button>
+		<h2>favoriteRepos:</h2>
+		<p
+			*ngFor="
+				let favoriteRepo of reposService.favoriteExtendedRepos$ | async
+			"
+		>
+			<span>{{ favoriteRepo | json }}</span
+			>;
+		</p>
+		<h2>filteredRepos:</h2>
+		<p
+			*ngFor="
+				let filteredRepo of reposService.filteredExtendedRepos$ | async
+			"
+		>
+			<span>{{ filteredRepo | json }}</span
+			>;
+		</p>
 	</div>
 </div>

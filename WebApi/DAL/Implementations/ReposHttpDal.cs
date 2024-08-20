@@ -10,9 +10,7 @@ using WebApi.Models.Models;
 
 namespace WebApi.DAL.Implementations
 {
-	/// <summary>
-	/// note high/low level code separation
-	/// </summary>
+	/// <summary>note high/low level code separation</summary>
 	public class ReposHttpDal : IReposDal
 	{
 		// abstraction. we don't allow direct access from outside.

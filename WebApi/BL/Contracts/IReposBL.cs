@@ -8,10 +8,10 @@ namespace WebApi.BL.Contracts
 
 		IEnumerable<ExtendedRepo> GetExtendedReposByFullNames(List<string> fullNames);
 
-		IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos();
+		//IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos();
 
-		ExtendedRepo SetFavoriteByFullName(string fullName);
+		//ExtendedRepo SetFavoriteByFullName(string fullName);
 
-		ExtendedRepo SetUnfavoriteByFullName(string fullName);
+		//ExtendedRepo SetUnfavoriteByFullName(string fullName);
 	}
 }
