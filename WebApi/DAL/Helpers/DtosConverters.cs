@@ -3,7 +3,7 @@ using WebApi.Models.Models;
 namespace WebApi.DAL.Helpers
 {
 	//TODO: should just configure AutoMapper
-	public static class Converters
+	public static class DtosConverters
 	{
 		/// <summary>note: expects non-null</summary>
 		public static Repo ConvertRepoDtoToRepo(this RepoRestDto restResponse)

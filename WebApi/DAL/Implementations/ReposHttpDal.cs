@@ -43,7 +43,7 @@ namespace WebApi.DAL.Implementations
 
 		public IEnumerable<Repo> GetReposByFullNames(List<string> fullNames)
 		{
-			object query = QueryBuilder.BuildGraphQlQueryByFullNames(fullNames);
+			object query = GraphQlQueryBuilder.BuildQueryByFullNames(fullNames);
 
 			ReposGraphQlDto? response = SendSimpleHttpRequest<ReposGraphQlDto?>("graphql", HttpMethod.Post, query);
 			if (response == null || response.Data.IsNullOrEmpty())
