@@ -5,6 +5,7 @@ namespace WebApi.DAL.Helpers
 	//TODO: should just configure AutoMapper
 	public static class Converters
 	{
+		/// <summary>note: expects non-null</summary>
 		public static Repo ConvertRepoDtoToRepo(this RepoRestDto restResponse)
 		{
 			if (restResponse == null) throw new ArgumentNullException();
@@ -19,6 +20,7 @@ namespace WebApi.DAL.Helpers
 			};
 		}
 
+		/// <summary>note: expects non-null</summary>
 		public static Repo ConvertRepoDtoToRepo(this RepoGraphQlDto graphQlResponse)
 		{
 			if (graphQlResponse == null) throw new ArgumentNullException();
@@ -26,7 +28,7 @@ namespace WebApi.DAL.Helpers
 			return new Repo()
 			{
 				Name = graphQlResponse.Name,
-				FullName = $"{graphQlResponse.Owner}/{graphQlResponse.Name}",
+				FullName = $"{graphQlResponse.Owner.Login}/{graphQlResponse.Name}",
 				Url = graphQlResponse.Url,
 				Description = graphQlResponse.Description,
 				CreatedAt = graphQlResponse.CreatedAt

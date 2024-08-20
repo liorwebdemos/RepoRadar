@@ -2,6 +2,7 @@ using System.Text;
 
 namespace WebApi.DAL.Helpers
 {
+	/// <summary>low level code - would've been better to use some built in library that does </summary>
 	public static class QueryBuilder
 	{
 		public static object BuildGraphQlQueryByFullNames(List<string> fullNames)

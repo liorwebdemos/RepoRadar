@@ -7,29 +7,36 @@
 			(input)="onInput($event)"
 			placeholder="Search by keyword..."
 		/>
-		<button (click)="setRepoFavorite(searchInput.value)">
-			Add to favorites
-		</button>
-		<button (click)="reposService.setUnfavoriteByFullName(searchInput.value)">
-			Remove from favorites
-		</button>
 		<h2>favoriteRepos:</h2>
-		<p
+		<div
 			*ngFor="
 				let favoriteRepo of reposService.favoriteExtendedRepos$ | async
 			"
 		>
-			<span>{{ favoriteRepo | json }}</span
-			>;
-		</p>
+			<span>{{ favoriteRepo | json }}</span>
+			<button (click)="reposService.setUnfavorite(favoriteRepo)">
+				Remove from favorites
+			</button>
+		</div>
 		<h2>filteredRepos:</h2>
-		<p
+		<div
 			*ngFor="
 				let filteredRepo of reposService.filteredExtendedRepos$ | async
 			"
 		>
-			<span>{{ filteredRepo | json }}</span
-			>;
-		</p>
+			<span>{{ filteredRepo | json }}</span>
+			<button
+				*ngIf="!filteredRepo.isFavorite"
+				(click)="reposService.setFavorite(filteredRepo)"
+			>
+				Add to favorites
+			</button>
+			<button
+				*ngIf="filteredRepo.isFavorite"
+				(click)="reposService.setUnfavorite(filteredRepo)"
+			>
+				Remove from favorites
+			</button>
+		</div>
 	</div>
 </div>

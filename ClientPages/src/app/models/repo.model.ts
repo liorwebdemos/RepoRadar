@@ -1,6 +1,4 @@
-/** GitHub repository
- *
- * note: only part of the props of the full entity are provided in this model */
+/** GitHub repository - server model not to be used by the client's public APIs - since this model is missing the isFavorite property */
 export class Repo {
 	/**  */
 	public id: number = 0;

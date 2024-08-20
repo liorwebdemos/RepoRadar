@@ -8,6 +8,7 @@ import {
 	Subject,
 	Subscription,
 	switchMap,
+	take,
 	takeUntil,
 } from "rxjs";
 import { ExtendedRepo } from "../models/extended-repo";
@@ -43,20 +44,29 @@ export class HomeComponent {
 			.subscribe((repos: ExtendedRepo[]) => {
 				console.log("Repos:", repos);
 			});
+
+		this.reposService
+			.initializeFavoriteExtendedRepos()
+			.pipe(
+				take(1), // take only the first emitted value and then complete
+			)
+			.subscribe((data) => {
+				console.log("Received data:", data);
+			});
 	}
 
 	onInput(event: any): void {
 		this.keywordSubject$.next(event.target.value);
 	}
 
-	public setRepoFavorite(fullName: string): void {
-		this.reposService
-			.setFavoriteByFullName(fullName)
-			.pipe(takeUntil(this.destroySubject$))
-			.subscribe((repos: ExtendedRepo) => {
-				console.log("Favorite added:", repos);
-			});
-	}
+	// public setRepoFavorite(fullName: string): void {
+	// 	this.reposService
+	// 		.setFavoriteByFullName(fullName)
+	// 		.pipe(takeUntil(this.destroySubject$))
+	// 		.subscribe((repos: ExtendedRepo) => {
+	// 			console.log("Favorite added:", repos);
+	// 		});
+	// }
 
 	ngOnDestroy() {
 		this.destroySubject$.next();

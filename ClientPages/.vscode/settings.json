@@ -24,5 +24,5 @@
 		"dist": true
 	},
 	"emmet.triggerExpansionOnTab": true,
-	"cSpell.words": ["devkit"]
+	"cSpell.words": ["devkit", "endregion", "unsave"]
 }
