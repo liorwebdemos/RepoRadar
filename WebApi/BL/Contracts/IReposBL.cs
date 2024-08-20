@@ -1,10 +1,17 @@
-using WebApi.Models;
+using WebApi.Models.Models;
 
 namespace WebApi.BL.Contracts
 {
 	public interface IReposBL
 	{
-		/// <summary>get repos by keyword</summary>
-		IEnumerable<Repo> GetReposByKeyword(string? keyword);
+		IEnumerable<ExtendedRepo> GetExtendedReposByKeyword(string? keyword);
+
+		IEnumerable<ExtendedRepo> GetExtendedReposByFullNames(List<string> fullNames);
+
+		IEnumerable<ExtendedRepo> GetFavoriteExtendedRepos();
+
+		ExtendedRepo SetFavoriteByFullName(string fullName);
+
+		ExtendedRepo SetUnfavoriteByFullName(string fullName);
 	}
 }

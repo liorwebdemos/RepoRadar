@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(options => { }); // Log Http Requests
 
 #region DAL
-builder.Services.AddScoped<IReposRepo, ReposHttpRepo>();
+builder.Services.AddScoped<IReposDal, ReposHttpDal>();
 //builder.Services.AddScoped<IReposRepo, ReposMockRepo>();
 #endregion DAL
 
