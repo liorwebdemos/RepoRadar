@@ -12,13 +12,18 @@ import { Login } from "./models/login.model";
 export class UsersService {
 	constructor(
 		private httpClient: HttpClient,
+		private router: Router,
 		@Inject(API_BASE_URL) private baseUrl: string,
 	) {}
 
 	public authenticate(login: Login): Observable<UserAuthentication> {
 		return this.httpClient.post<UserAuthentication>(
-			`${this.baseUrl}session`,
+			`${this.baseUrl}users/authentication`,
 			login,
 		);
+	}
+
+	private redirectToHome(): Promise<boolean> {
+		return this.router.navigate(["./home"]); // https://stackoverflow.com/a/37622179
 	}
 }
