@@ -2,11 +2,12 @@ import { ReposService } from "./../repos.service";
 import { Component, Input } from "@angular/core";
 import { RepoBoxComponent } from "../repo-box/repo-box.component";
 import { CommonModule } from "@angular/common";
+import { MenuComponent } from "../menu/menu.component";
 
 @Component({
 	selector: "app-favorites",
 	standalone: true,
-	imports: [RepoBoxComponent, CommonModule],
+	imports: [RepoBoxComponent, CommonModule, MenuComponent],
 	templateUrl: "./favorites.component.html",
 })
 export class FavoritesComponent {
