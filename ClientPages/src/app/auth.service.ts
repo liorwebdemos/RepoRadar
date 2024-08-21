@@ -15,9 +15,7 @@ export class AuthService {
 	) {}
 
 	public getUserAuthentication(): Observable<UserAuthentication> {
-		return this.httpClient.get<UserAuthentication>(`${this.baseUrl}auth`, {
-			withCredentials: true,
-		});
+		return this.httpClient.get<UserAuthentication>(`${this.baseUrl}auth`);
 	}
 
 	public login(login: Login): Observable<UserAuthentication> {

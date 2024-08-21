@@ -23,6 +23,8 @@ builder.Services.AddCors(
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie(options =>
 	{
+		options.Cookie.SameSite = SameSiteMode.None;
+		options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 		options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(builder.Configuration["Jwt:ExpiresInMinutes"]!));
 		options.SlidingExpiration = true;
 		// override the default redirection to login for unauthorized requests
