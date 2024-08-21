@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BL.Contracts;
 using WebApi.Models.Models;
 
 namespace WebApi.Controllers
 {
+	[Authorize] // protected
 	[ApiController]
 	[Route("api/repos")]
 	public class ReposController : ControllerBase

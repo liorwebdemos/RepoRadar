@@ -12,9 +12,10 @@ builder.Services.AddCors(
 	options => options.AddPolicy(
 		name: allowAllCorsPolicy,
 		builder => builder
-			.AllowAnyOrigin() // .WithOrigins("http://localhost:1234")
+			.WithOrigins("http://localhost:4200", "https://localhost:4200") // .AllowAnyOrigin()
 			.AllowAnyMethod()
-			.AllowAnyHeader())
+			.AllowAnyHeader()
+			.AllowCredentials())
 );
 
 #region Services
@@ -24,6 +25,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 	{
 		options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(builder.Configuration["Jwt:ExpiresInMinutes"]!));
 		options.SlidingExpiration = true;
+		// override the default redirection to login for unauthorized requests
+		options.Events = new CookieAuthenticationEvents
+		{
+			OnRedirectToLogin = context =>
+			{
+				context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+				return Task.CompletedTask;
+			}
+		};
 	});
 
 builder.Services.AddAuthorization();
