@@ -106,7 +106,7 @@ Taking a moment to look at these is in my opinion the best way to get familiar w
 ## Final Note
 
 A lot of small to medium compromises were made due to the fact that this is after all a demo project with a specific time frame - not an enterprise level app.
-From not adding a global middleware to catch, log, and re-throw exceptions in the back; to not showing a loading indicator while fetching data in the front; to using Angular's template-driven forms instead of reactive ones (which I always do); to not fully adopting a 3rd party library like Angular Material for UI (which by the way, I have much experience with, including creating and customizing a theme: https://webforwin.com/projects/sqlink-pipeline/).
+From not adding a global middleware to catch, log, and re-throw exceptions in the back; to not showing a loading indicator while fetching data in the front; to using Angular's template-driven forms instead of reactive ones (which I always do); to not fully adopting a 3rd party library like Angular Material for UI (which by the way, I have much experience with, including creating a custom theme).
 This is all to say that I can't even list the amount of small to medium compromises that I've knowingly made throughout the way.
 
 That said, I believe that the many strong points that this project possesses help in hinting towards the fact that I am well-aware of all these additional aspects that are important in an enterprise app.
