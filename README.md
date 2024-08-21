@@ -17,10 +17,14 @@ The central focus is the backend, showcasing various features such as a well-str
 ### B. Generate Your Own GitHub API Access Token
 
 To overcome basic rate limits, so you can test the project in ease and convenience, do the following:
-    - Login into your Github account
-    - Go to https://github.com/settings/tokens/new
-	- Give the access token a note and check "repo" option.
-	- Generate token
+
+1. Login into your Github account
+1. 
+2. Go to https://github.com/settings/tokens/new
+1. 
+3. Give the access token a note and check "repo" option.
+1. 
+4. Generate token
 
 If you do reach the rate limit after all, you may put your own access token, or switch in Program.cs to the mock DAL implementation.
 
