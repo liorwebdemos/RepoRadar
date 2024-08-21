@@ -1,42 +1,41 @@
+<ng-template #noResults>
+	<p *ngIf="!!keywordAfterResult">No results found.</p>
+</ng-template>
 <div class="flex-grow flex flex-col overflow-auto">
-	<app-header></app-header>
-	<div class="flex-grow flex flex-col overflow-auto">
-		<input
-			type="text"
-			#searchInput
-			(input)="onInput($event)"
-			placeholder="Search by keyword..."
-		/>
-		<h2>favoriteRepos:</h2>
-		<div
-			*ngFor="
-				let favoriteRepo of reposService.favoriteExtendedRepos$ | async
-			"
-		>
-			<span>{{ favoriteRepo | json }}</span>
-			<button (click)="reposService.setUnfavorite(favoriteRepo)">
-				Remove from favorites
-			</button>
+	<div class="flex-grow flex flex-row overflow-auto">
+		<div class="flex-grow flex flex-col gap-y-5 overflow-auto">
+			<app-search-bar
+				class="px-5 py-3 bg-gray-300 shadow"
+				(keywordChange)="onKeywordChange($event)"
+			></app-search-bar>
+			<div class="flex-grow flex flex-col gap-y-3 overflow-auto px-5 py-1">
+				<h3 *ngIf="!keywordAfterResult" class="text-xl">
+					Go ahead and search for something.
+				</h3>
+				<h2 *ngIf="!!keywordAfterResult" class="text-2xl font-medium">
+					Search Results for "{{ keywordAfterResult }}"
+				</h2>
+				<div
+					*ngIf="
+						reposService.filteredExtendedRepos$ | async as filteredRepos
+					"
+					class="flex-grow flex flex-row items-stretch flex-wrap"
+				>
+					<ng-container *ngIf="filteredRepos.length > 0; else noResults">
+						<app-repo-box
+							*ngFor="let filteredRepo of filteredRepos"
+							[extendedRepo]="filteredRepo"
+							class="flex-grow w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2"
+						>
+						</app-repo-box>
+					</ng-container>
+				</div>
+			</div>
 		</div>
-		<h2>filteredRepos:</h2>
 		<div
-			*ngFor="
-				let filteredRepo of reposService.filteredExtendedRepos$ | async
-			"
+			class="hidden w-1/4 flex-shrink-0 flex-grow-0 md:flex flex-col gap-y-3 bg-blue-100 overflow-auto shadow-inner"
 		>
-			<span>{{ filteredRepo | json }}</span>
-			<button
-				*ngIf="!filteredRepo.isFavorite"
-				(click)="reposService.setFavorite(filteredRepo)"
-			>
-				Add to favorites
-			</button>
-			<button
-				*ngIf="filteredRepo.isFavorite"
-				(click)="reposService.setUnfavorite(filteredRepo)"
-			>
-				Remove from favorites
-			</button>
+			<app-favorites [isEachItemFullWidth]="true"></app-favorites>
 		</div>
 	</div>
 </div>

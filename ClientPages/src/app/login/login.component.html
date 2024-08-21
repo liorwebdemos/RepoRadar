@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="flex-grow flex flex-row justify-center items-center">
+	<div class="flex flex-col gap-y-5">
+		<div class="text-2xl text-center font-semibold">Login Into App</div>
+		<form
+			(submit)="login()"
+			class="flex flex-col gap-y-3 px-5 py-3 bg-white shadow-lg rounded-lg"
+			novalidate
+		>
+			<div *ngIf="!!lastLoginErrorDate" class="text-red-800">
+				<div>Wrong username and/or password.</div>
+				<div class="text-right text-xs">
+					{{ lastLoginErrorDate | date: "dd/MM/yyyy HH:mm:ss" }}
+				</div>
+			</div>
+			<label class="flex flex-row items-center gap-x-5">
+				<div class="w-28 flex flex-row flex-nowrap items-center gap-x-2">
+					<!-- <i class="w-5 fas fa-at text-gray-400 text-sm"></i> -->
+					<span class="font-medium">Username</span>
+				</div>
+				<input
+					type="text"
+					name="username"
+					[(ngModel)]="loginDetails.username"
+					class="w-52 h-8 px-1.5 border rounded shadow-sm outline-none focus:bg-blue-50"
+				/>
+			</label>
+			<label class="flex flex-row items-center gap-x-5">
+				<div class="w-28 flex flex-row flex-nowrap items-center gap-x-2">
+					<!-- <i class="w-5 fas fa-lock-open text-gray-400 text-sm"></i> -->
+					<span class="font-medium">Password</span>
+				</div>
+				<input
+					type="password"
+					name="password"
+					[(ngModel)]="loginDetails.password"
+					class="w-52 h-8 px-1.5 border rounded shadow-sm outline-none focus:bg-blue-50"
+				/>
+			</label>
+			<button
+				type="submit"
+				[disabled]="!loginDetails.username || !loginDetails.password"
+				class="w-full h-8 rounded bg-blue-200 disabled:cursor-not-allowed enabled:hover:bg-blue-300 enabled:active:bg-blue-400 font-medium tracking-wide"
+			>
+				<i class="fas fa-right-to-bracket text-gray-700 mr-2"></i>
+				<span class="leading-none">Login</span>
+			</button>
+		</form>
+	</div>
+</div>

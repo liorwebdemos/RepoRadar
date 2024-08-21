@@ -1,7 +1,7 @@
 export class UserAuthentication {
 	/**  */
-	public token?: string;
+	public isLoggedIn: boolean = false;
 
 	/**  */
-	public expiryDate?: Date;
+	public username?: string;
 }

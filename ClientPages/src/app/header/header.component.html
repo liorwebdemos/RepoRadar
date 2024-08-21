@@ -1,15 +1,11 @@
-<div class="flex flex-col">
+<div
+	class="flex-shrink-0 flex-grow-0 flex flex-row justify-center md:justify-start items-center px-5 py-3 bg-blue-800 text-2xl shadow"
+>
 	<a
 		[routerLink]="['/']"
-		class="flex-shrink-0 flex-grow-0 flex flex-row justify-center md:justify-start items-center gap-x-3 px-5 py-3 bg-gray-200 text-2xl font-bold text-blue-800 shadow"
+		class="flex flex-row justify-center md:justify-start items-center gap-x-3 font-bold text-white"
 	>
 		<img src="images/radar.png" width="32" />
 		<div>Repo Radar</div>
 	</a>
-	<div
-		class="flex flex-row justify-center md:justify-start items-center px-5 py-2"
-	>
-		<a [routerLink]="['/home']">Home</a>
-		<a [routerLink]="['/favorites']">Favorites</a>
-	</div>
 </div>

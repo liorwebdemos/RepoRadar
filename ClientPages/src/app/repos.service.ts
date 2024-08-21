@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable, tap } from "rxjs";
+import { BehaviorSubject, filter, map, Observable, of, skip, tap } from "rxjs";
 import { ExtendedRepo } from "./models/extended-repo";
 import { API_BASE_URL } from "./app.config";
 import { plainToInstance } from "class-transformer";
 import { Repo } from "./models/repo.model";
 
-const LOCAL_STORAGE_KEY = "_RepoRadarFavoritesFullNames";
+const LOCAL_STORAGE_FAVORITES_KEY = "_RepoRadarFavoritesFullNames";
 
 @Injectable({
 	providedIn: "root",
@@ -33,9 +33,13 @@ export class ReposService {
 	) {}
 
 	//#region public api - handles only with extended repo
-	public getExtendedReposByKeyword(
-		keyword: string,
+	public updateExtendedReposByKeyword(
+		keyword: string | null,
 	): Observable<ExtendedRepo[]> {
+		if (!keyword) {
+			this.filteredExtendedReposSubject$.next([]);
+			return of([]);
+		}
 		const params = new HttpParams().set("keyword", keyword);
 		return this.httpClient
 			.get<Repo[]>(`${this.baseUrl}repos`, { params })
@@ -77,11 +81,11 @@ export class ReposService {
 		// 1. save in LS
 		this.saveFavoriteByFullName(extendedRepo.fullName);
 		// 2. add to favorites array
-		this.favoriteExtendedReposSubject$.next(
-			this.favoriteExtendedReposSubject$.value.concat(
-				new ExtendedRepo(extendedRepo.repo, true),
-			),
-		);
+		this.favoriteExtendedReposSubject$.next([
+			// add to the beginning of the favorites array
+			new ExtendedRepo(extendedRepo.repo, true),
+			...this.favoriteExtendedReposSubject$.value,
+		]);
 		// 3. change isFavorite in filtered array
 		this.filteredExtendedReposSubject$.next(
 			this.filteredExtendedReposSubject$.value.map((er) => {
@@ -135,7 +139,7 @@ export class ReposService {
 
 	//#region saved local storage data - favorite repos names
 	private getSavedFavoritesFullNames(): string[] {
-		const favoritesString = localStorage.getItem(LOCAL_STORAGE_KEY);
+		const favoritesString = localStorage.getItem(LOCAL_STORAGE_FAVORITES_KEY);
 		if (!favoritesString) {
 			return [];
 		}
@@ -151,7 +155,7 @@ export class ReposService {
 			return;
 		}
 		localStorage.setItem(
-			LOCAL_STORAGE_KEY,
+			LOCAL_STORAGE_FAVORITES_KEY,
 			JSON.stringify(oldFavoritesNames.concat(newFavoriteName)),
 		);
 	}
@@ -165,7 +169,7 @@ export class ReposService {
 			return;
 		}
 		localStorage.setItem(
-			LOCAL_STORAGE_KEY,
+			LOCAL_STORAGE_FAVORITES_KEY,
 			JSON.stringify(
 				oldFavoritesNames.filter(
 					(of) => of.toLowerCase() !== oldFavoriteName.toLowerCase(),
@@ -183,16 +187,13 @@ export class ReposService {
 			throw new Error("Repo full name (required parameter) is empty [2]");
 		}
 		const favorites: string[] = this.getSavedFavoritesFullNames();
-		console.log({ favorites });
 		if (
 			favorites
 				.map((of) => of.toLowerCase())
 				.includes(fullName.toLowerCase())
 		) {
-			console.log("yeah");
 			return true;
 		}
-		console.log("nope");
 		return false;
 	}
 	//#endregion

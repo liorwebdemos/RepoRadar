@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { ExtendedRepo } from "./../models/extended-repo";
+import { Component, Input } from "@angular/core";
+import { ReposService } from "../repos.service";
 
 @Component({
-  selector: 'app-repo-box',
-  standalone: true,
-  imports: [],
-  templateUrl: './repo-box.component.html',
-  styleUrl: './repo-box.component.scss'
+	selector: "app-repo-box",
+	standalone: true,
+	imports: [CommonModule],
+	templateUrl: "./repo-box.component.html",
 })
 export class RepoBoxComponent {
+	@Input() extendedRepo: ExtendedRepo | null = null;
 
+	constructor(public reposService: ReposService) {}
 }

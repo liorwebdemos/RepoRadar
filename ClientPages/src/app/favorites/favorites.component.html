@@ -1,0 +1,24 @@
+<ng-template #noResults>
+	<p>No favorites found.</p>
+</ng-template>
+<div class="flex-grow flex flex-col gap-y-3 overflow-auto px-5 py-3">
+	<h2 class="text-2xl font-medium">My Favorites</h2>
+	<div
+		*ngIf="reposService.favoriteExtendedRepos$ | async as favoriteRepos"
+		class="flex-grow flex flex-row items-stretch flex-wrap"
+	>
+		<ng-container *ngIf="favoriteRepos.length > 0; else noResults">
+			<app-repo-box
+				*ngFor="let favoriteRepo of favoriteRepos"
+				[extendedRepo]="favoriteRepo"
+				class="p-2 flex-grow"
+				[ngClass]="
+					isEachItemFullWidth
+						? 'w-full'
+						: 'flex-grow w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2'
+				"
+			>
+			</app-repo-box>
+		</ng-container>
+	</div>
+</div>

@@ -6,7 +6,9 @@ import {
 import { provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
-import { provideHttpClient } from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { authInterceptor } from "./auth.interceptor";
+import { authGuard } from "./auth.guard";
 
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
@@ -15,7 +17,7 @@ export const appConfig: ApplicationConfig = {
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),
 		provideAnimationsAsync(),
-		provideHttpClient(), // withInterceptors([userAuthenticationInterceptor])
+		provideHttpClient(withInterceptors([authInterceptor])),
 		{ provide: API_BASE_URL, useValue: "https://localhost:7076/api/" }, // should put value(s) in environment configuration files
 	],
 };

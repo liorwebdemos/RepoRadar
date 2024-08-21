@@ -1,1 +1,33 @@
-<p>repo-box works!</p>
+<div
+	class="flex flex-col gap-y-2 border shadow rounded overflow-auto"
+	[ngClass]="!!extendedRepo?.isFavorite ? 'bg-blue-50' : 'bg-white'"
+>
+	<div class="flex flex-col gap-y-2 text-left px-2 py-1">
+		<div class="font-medium underline">{{ extendedRepo?.repo?.name }}</div>
+		<div>{{ extendedRepo?.repo?.fullName }}</div>
+		<a
+			class="ml-auto"
+			*ngIf="extendedRepo?.repo?.url"
+			[href]="extendedRepo?.repo?.url"
+			target="_blank"
+			><span
+				class="border-b-2 border-gray-300 hover:border-gray-500 border-dotted"
+				>Open in GitHub</span
+			></a
+		>
+	</div>
+	<button
+		*ngIf="!extendedRepo?.isFavorite"
+		(click)="reposService.setFavorite(extendedRepo!)"
+		class="text-center px-2 py-1 bg-gray-300 hover:bg-gray-400 active:bg-gray-500"
+	>
+		Add to favorites
+	</button>
+	<button
+		*ngIf="extendedRepo?.isFavorite"
+		(click)="reposService.setUnfavorite(extendedRepo!)"
+		class="text-center px-2 py-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white"
+	>
+		In Favorites (Remove)
+	</button>
+</div>
