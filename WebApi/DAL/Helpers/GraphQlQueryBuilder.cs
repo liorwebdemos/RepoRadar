@@ -1,5 +1,4 @@
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace WebApi.DAL.Helpers
 {
@@ -7,8 +6,6 @@ namespace WebApi.DAL.Helpers
 	/// both for better security (even though we do escaping here) and to avoid this type of low level code</summary>
 	public static class GraphQlQueryBuilder
 	{
-		private static readonly Regex ValidNameRegex = new("^[a-zA-Z0-9_-]+$", RegexOptions.Compiled);
-
 		public static object BuildQueryByFullNames(List<string> fullNames)
 		{
 			// dynamically build a GraphQl query
@@ -25,12 +22,6 @@ namespace WebApi.DAL.Helpers
 
 				string owner = parts[0];
 				string name = parts[1];
-
-				// Validate the owner and name using a strict regex
-				if (!IsValidName(owner) || !IsValidName(name))
-				{
-					throw new ArgumentException($"Invalid characters in fullName: {fullName}");
-				}
 
 				stringBuilder.AppendLine($@"
                 repo{index}: repository(owner: ""{EscapeString(owner)}"", name: ""{EscapeString(name)}"") {{
@@ -49,12 +40,6 @@ namespace WebApi.DAL.Helpers
 			stringBuilder.Append("}");
 
 			return new { query = stringBuilder.ToString() };
-		}
-
-		private static bool IsValidName(string name)
-		{
-			// Ensure the name only contains valid characters
-			return ValidNameRegex.IsMatch(name);
 		}
 
 		private static string EscapeString(string input)
