@@ -21,8 +21,5 @@ namespace WebApi.Models.Models
 
 		/// <summary></summary>
 		public DateTimeOffset? CreatedAt { get; set; }
-
-		/// <summary></summary>
-		public string Language { get; set; } = string.Empty;
 	}
 }
