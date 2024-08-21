@@ -91,14 +91,14 @@ Taking a moment to look at these is in my opinion the best way to get familiar w
 
 ## Final Note
 
-A lot of small to medium compromises were made due to the fact that this is a demo project with a specific time frame - this is no enterprise level project:
-From not adding a global middleware to catch, log, and re-throw exceptions in the back; to not showing a loading indicator while fetching data in the front; to using template-driven forms instead of reactive ones (which I always do); to not fully adopting a 3rd party UI library like Angular Material (which by the way, I have much experience with, including creating and customizing a theme: https://webforwin.com/projects/sqlink-pipeline/).
+A lot of small to medium compromises were made due to the fact that this is after all a demo project with a specific time frame - not an enterprise level app.
+From not adding a global middleware to catch, log, and re-throw exceptions in the back; to not showing a loading indicator while fetching data in the front; to using Angular's template-driven forms instead of reactive ones (which I always do); to not fully adopting a 3rd party library like Angular Material for UI (which by the way, I have much experience with, including creating and customizing a theme: https://webforwin.com/projects/sqlink-pipeline/).
 This is all to say that I can't even list the amount of small to medium compromises that I've knowingly made throughout the way.
 
-That said, I believe that the many strong points that this project does possess help in hinting towards the fact that I am well-aware of all these additional aspects that are important in an enterprise app.
+That said, I believe that the many strong points that this project possesses help in hinting towards the fact that I am well-aware of all these additional aspects that are important in an enterprise app.
 So even though one can't build an enterprise app in two days, I do believe this project showcases some of my abilities, strengths and overall attitude as a developer.
 
-In any doubt, feel free to reach out to me. We can discuss different aspects of this project in detail, since they can never fit one README document.
-Finally, to deliver sooner I also knowingly went a little off-script from initial requirements: i.e. there's no avatar of the owner. In another case, saving only the favorite repos unique identifier in the LS instead of the whole object has created a more work for me - but it has the advantage that data about favorites is always kept fresh.
+In any doubt, feel free to reach out to me. We can discuss different aspects of this project in detail (since it can never fit one README document).
+Finally, to deliver sooner I also knowingly went a little off-script from initial requirements: i.e. there's no avatar of the repo owner in the "gallery". In another case, saving only the favorite repos unique identifier in the LS instead of the whole object has created more work for me - but it has the advantage that data about favorite repos is always fresh.
 
-## Enjoy!
+### Enjoy!
