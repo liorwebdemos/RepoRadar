@@ -7,10 +7,10 @@ using WebApi.DAL.Implementations;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-string allowAllCorsPolicy = "_allowAllCorsPolicy";
+string allowCorsPolicy = "_allowCorsPolicy";
 builder.Services.AddCors(
 	options => options.AddPolicy(
-		name: allowAllCorsPolicy,
+		name: allowCorsPolicy,
 		builder => builder
 			.WithOrigins("http://localhost:4200", "https://localhost:4200") // .AllowAnyOrigin()
 			.AllowAnyMethod()
@@ -68,7 +68,7 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseHttpLogging();
 	app.UseDeveloperExceptionPage();
-	app.UseCors(allowAllCorsPolicy);
+	app.UseCors(allowCorsPolicy);
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
