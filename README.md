@@ -8,17 +8,32 @@ The central focus is the backend, showcasing various features such as a well-str
 
 ## Initial Setup
 
-### A. Server
+### A. Clone Repo
 
-1. **Start the Server:**
-   -  Select the `"https"` launch profile (Kestrel via HTTPS).
+   ```bash
+   git clone https://github.com/liorwebdemos/RepoRadar
+   ```
+
+### B. Generate Your Own GitHub API Access Token
+
+To overcome basic rate limits, so you can test the project in ease and convenience, do the following:
+    - Login into your Github account
+    - Go to https://github.com/settings/tokens/new
+	- Give the access token a note and check "repo" option.
+	- Generate token
+
+If you do reach the rate limit after all, you may put your own access token, or switch in Program.cs to the mock DAL implementation.
+
+### C. Start Server
+
+   -  In Visual Studio, select the `"https"` launch profile (Kestrel via HTTPS).
    -  The browser should automatically open Swagger at [https://localhost:7076/swagger](https://localhost:7076/swagger).
 
-### B. Client
+### D. Start Client
 
 1. **Browse to RepoRadar/ClientPages folder**
 
-2. **Installation:**
+2. **Install Packages**
 
    ```bash
    npm install
@@ -34,13 +49,6 @@ The central focus is the backend, showcasing various features such as a well-str
 
 Username: admin  
 Password: abc123
-
-#### Note About GitHub's API Rate Limits
-
-I've added my personal access token to overcome basic rate limits (in appsettings.json).
-[I am aware that in a real app this should be done with secrets or in another secure way - not in appsettings.json - especially since this is a public GitHub repo].
-
-If you do reach the rate limit after all, you may put your own access token, or switch in Program.cs to the mock repository implementation.
 
 ## Two Central Models
 
