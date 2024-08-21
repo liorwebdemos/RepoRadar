@@ -7,11 +7,11 @@ namespace WebApi.BL.Implementations
 {
 	public class ReposBL : IReposBL
 	{
-		private readonly IReposDal ReposRepo;
+		private readonly IReposDal ReposDal;
 
-		public ReposBL(IReposDal reposRepo)
+		public ReposBL(IReposDal reposDal)
 		{
-			ReposRepo = reposRepo;
+			ReposDal = reposDal;
 		}
 
 		public IEnumerable<Repo> GetReposByKeyword(string? keyword)
@@ -20,9 +20,9 @@ namespace WebApi.BL.Implementations
 			{
 				return Enumerable.Empty<Repo>();
 			}
-			return ReposRepo.GetReposByKeyword(keyword)
+			return ReposDal.GetReposByKeyword(keyword)
 				.OrderBy(r => r.Name)
-				.ToList(); // TODO: explain reasoning behind tolisting here
+				.ToList(); // note: can explain reasoning behind ToListing both here and in many other places
 		}
 
 		public IEnumerable<Repo> GetReposByFullNames(List<string> fullNames)
@@ -31,7 +31,7 @@ namespace WebApi.BL.Implementations
 			{
 				return Enumerable.Empty<Repo>();
 			}
-			return ReposRepo.GetReposByFullNames(fullNames)
+			return ReposDal.GetReposByFullNames(fullNames)
 				.OrderBy(r => r.Name)
 				.ToList();
 		}

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using WebApi.BL.Contracts;
 using WebApi.BL.Implementations;
@@ -17,6 +18,28 @@ builder.Services.AddCors(
 );
 
 #region Services
+#region Security
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(options =>
+	{
+		options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(builder.Configuration["Jwt:ExpiresInMinutes"]!));
+		options.SlidingExpiration = true;
+	});
+
+builder.Services.AddAuthorization();
+#endregion Security
+
+#region DAL
+builder.Services.AddScoped<IReposDal, ReposHttpDal>();
+//builder.Services.AddScoped<IReposDal, ReposMockDal>();
+#endregion DAL
+
+#region BL
+builder.Services.AddScoped<IAuthBL, AuthBL>();
+builder.Services.AddScoped<IReposBL, ReposBL>();
+#endregion BL
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers(options =>
 {
 	// useful defaults, source: https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-8.0#special-case-formatters-2
@@ -25,23 +48,12 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpLogging(options => { }); // Log Http Requests
-
-#region DAL
-builder.Services.AddScoped<IReposDal, ReposHttpDal>();
-//builder.Services.AddScoped<IReposRepo, ReposMockRepo>();
-#endregion DAL
-
-#region BL
-builder.Services.AddScoped<IReposBL, ReposBL>();
-#endregion BL
-
+builder.Services.AddHttpLogging(options => { }); // log http requests
 #endregion Services
 
 WebApplication app = builder.Build();
 
 #region Http Pipeline Configuration
-
 if (app.Environment.IsDevelopment())
 {
 	app.UseHttpLogging();
@@ -53,11 +65,11 @@ if (app.Environment.IsDevelopment())
 
 #region Security
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 #endregion Security
 
 app.MapControllers();
-
 #endregion Http Pipeline Configuration
 
 app.Run();

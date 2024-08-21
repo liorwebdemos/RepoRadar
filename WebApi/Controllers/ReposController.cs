@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 	[Route("api/repos")]
 	public class ReposController : ControllerBase
 	{
-		private IReposBL _reposBL;
+		private readonly IReposBL _reposBL;
 
 		public ReposController(IReposBL reposBL)
 		{
