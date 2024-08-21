@@ -12,7 +12,7 @@ builder.Services.AddCors(
 	options => options.AddPolicy(
 		name: allowCorsPolicy,
 		builder => builder
-			.WithOrigins("http://localhost:4200", "https://localhost:4200") // .AllowAnyOrigin()
+			.WithOrigins("http://localhost:4200", "https://localhost:4200") // note: would've been better to put these configuration values in appsettings.Development.json // .AllowAnyOrigin()
 			.AllowAnyMethod()
 			.AllowAnyHeader()
 			.AllowCredentials())
