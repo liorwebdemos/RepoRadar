@@ -26,7 +26,9 @@ To overcome basic rate limits, so you can test the project in ease and convenien
 
 4. Generate token
 
-After extensive usage you may face rate limits again after all. If that happens, either wait a while or switch in Program.cs to the mock DAL implementation.
+5. Put the token in appsettings.json's GitHubApi:AccessToken
+
+After extensive usage you may face rate limits again after all. If that happens, either wait awhile or switch in Program.cs to the mock DAL implementation.
 
 ### C. Start Server
 
