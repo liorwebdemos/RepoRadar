@@ -38,6 +38,7 @@ Password: abc123
 #### Note About GitHub's API Rate Limits
 
 I've added my personal access token to overcome basic rate limits (in appsettings.json).
+[I am aware that in a real app this should be done with secrets or in another secure way - not in appsettings.json - especially since this is a public GitHub repo].
 
 If you do reach the rate limit after all, you may put your own access token, or switch in Program.cs to the mock repository implementation.
 
